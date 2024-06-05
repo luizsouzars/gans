@@ -57,7 +57,7 @@ O objetivo do gerador G é maximizar a probabilidade do discriminador D cometer 
 Uma variação importante das GANs é a WGAN, que modifica a função de perda para melhorar a estabilidade do treinamento e a qualidade das amostras geradas. A função de perda da WGAN é baseada na distância de Wasserstein, também conhecida como distância de Earth-Mover. A função de perda da WGAN é:
 
 $$
-min_G max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]
+\min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]
 $$
 
 Aqui, $\mathcal{D}$ é o conjunto de todas as funções $1$-Lipschitz, o que implica que $D$ deve ser limitado em sua capacidade de variação (o que é geralmente alcançado através de penalidades de gradiente ou corte de peso).
@@ -149,7 +149,7 @@ O conceito de equilíbrio de Nash, nomeado em homenagem ao matemático John Nash
 
 ### Definição Formal
 
-Em um jogo com $n$ jogadores, seja $S_i$ o conjunto de estratégias possíveis para o jogador $i$ e $u_i(s_1, s_2, \ldots, s_n)$ a função utilidade (payoff) do jogador $i$ quando os jogadores escolhem as estratégias $s_1, s_2, \ldots, s_n$, respectivamente. Um perfil de estratégia $(s_1^\*, s_2^\*, \ldots, s_n^\*)$ é um equilíbrio de Nash se, para cada jogador $i$,
+Em um jogo com $n$ jogadores, seja $S_i$ o conjunto de estratégias possíveis para o jogador $i$ e $u_i(s_1, s_2, \ldots, s_n)$ a função utilidade (payoff) do jogador $i$ quando os jogadores escolhem as estratégias $s_1, s_2, \ldots, s_n$, respectivamente. Um perfil de estratégia $(s_1^\*, s_2^\*, \ldots, s_n^\*)$ é um equilíbrio de Nash se, para cada jogador $i$,  
 $u_i(s_i^\*, s_{-i}^\*) \geq u_i(s_i, s_{-i}^\*) \quad \forall \quad s_i \in S_i$
 
 onde $s_{-i}^*$ representa as estratégias dos outros jogadores, exceto $i$.
