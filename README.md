@@ -1,7 +1,7 @@
 <script>
 MathJax = {
   tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
+    inlineMath: [['$$', '$$'], ['\\(', '\\)']]
   }
 };
 </script>
@@ -40,13 +40,13 @@ O processo de treinamento das GANs é um jogo de soma zero onde o gerador tenta 
 
 O treinamento de uma GAN é formulado como um problema de otimização minimax entre o gerador e o discriminador. A função de perda original proposta por Goodfellow é:
 
-$\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]$
+$$\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]$$
 
 Onde:
-- $G$ é o gerador, que mapeia um vetor de ruído $\mathbf{z}$ para a distribuição dos dados $G(\mathbf{z})$.
-- $D$ é o discriminador, que estima a probabilidade de uma amostra $\mathbf{x}$ ser real.
-- $p_{\text{data}}(\mathbf{x})$ é a distribuição real dos dados.
-- $p_{\mathbf{z}}(\mathbf{z})$ é a distribuição de ruído (normalmente uma distribuição uniforme ou normal).
+- $$G$$ é o gerador, que mapeia um vetor de ruído $$\mathbf{z}$$ para a distribuição dos dados $$G(\mathbf{z})$$.
+- $$D$$ é o discriminador, que estima a probabilidade de uma amostra $$\mathbf{x}$$ ser real.
+- $$p_{\text{data}}(\mathbf{x})$$ é a distribuição real dos dados.
+- $$p_{\mathbf{z}}(\mathbf{z})$$ é a distribuição de ruído (normalmente uma distribuição uniforme ou normal).
 
 O objetivo do gerador G é maximizar a probabilidade do discriminador D cometer um erro ao classificar uma amostra gerada como real. O discriminador, por sua vez, tenta maximizar sua precisão na classificação correta das amostras reais e geradas. Este jogo adversarial continua até que um equilíbrio de [Nash](#equilíbrio-de-nash) seja alcançado, onde nenhum dos jogadores (gerador ou discriminador) pode melhorar sua estratégia sem alterar a do outro.
 
@@ -54,9 +54,9 @@ O objetivo do gerador G é maximizar a probabilidade do discriminador D cometer 
 
 Uma variação importante das GANs é a WGAN, que modifica a função de perda para melhorar a estabilidade do treinamento e a qualidade das amostras geradas. A função de perda da WGAN é baseada na distância de Wasserstein, também conhecida como distância de Earth-Mover. A função de perda da WGAN é:
 
-$\min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]$
+$$\min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]$$
 
-Aqui, $\mathcal{D}$ é o conjunto de todas as funções $1$-Lipschitz, o que implica que $D$ deve ser limitado em sua capacidade de variação (o que é geralmente alcançado através de penalidades de gradiente ou corte de peso).
+Aqui, $$\mathcal{D}$$ é o conjunto de todas as funções $$1$$-Lipschitz, o que implica que $$D$$ deve ser limitado em sua capacidade de variação (o que é geralmente alcançado através de penalidades de gradiente ou corte de peso).
 
 ## Composição das Redes Neurais do Gerador e do Discriminador
 
@@ -64,14 +64,14 @@ Aqui, $\mathcal{D}$ é o conjunto de todas as funções $1$-Lipschitz, o que imp
 
 A rede neural do Gerador (Generator) tem como objetivo gerar dados sintéticos que sejam indistinguíveis dos dados reais. A arquitetura típica do Gerador inclui:
 
-1. **Camada de Entrada**: Um vetor de ruído aleatório $\mathbf{z}$ é fornecido como entrada. Esse vetor geralmente segue uma distribuição normal ou uniforme.
+1. **Camada de Entrada**: Um vetor de ruído aleatório $$\mathbf{z}$$ é fornecido como entrada. Esse vetor geralmente segue uma distribuição normal ou uniforme.
 
 2. **Camadas Ocultas**: Essas camadas são compostas por uma série de camadas densas (fully connected layers) ou camadas convolucionais transpostas (transposed convolutional layers), também conhecidas como camadas deconvolucionais. Cada camada é geralmente seguida por uma função de ativação não linear, como ReLU (Rectified Linear Unit) ou Leaky ReLU. As camadas deconvolucionais são usadas para aumentar a dimensionalidade dos dados ao longo da rede.
 
 3. **Camada de Saída**: A última camada do Gerador produz os dados sintéticos. Se a tarefa for gerar imagens, essa camada terá uma ativação tanh para normalizar os valores de pixel entre -1 e 1.
 
 Exemplo de arquitetura de um Gerador (para imagens de 64x64 pixels):
-- Entrada: vetor de ruído $\mathbf{z}$ de dimensão 100.
+- Entrada: vetor de ruído $$\mathbf{z}$$ de dimensão 100.
 - Camada densa totalmente conectada, seguida por reshaping para formar um volume.
 - Várias camadas convolucionais transpostas, com funções de ativação ReLU e normalização de lote (batch normalization).
 - Camada de saída convolucional transposta com ativação tanh.
@@ -145,11 +145,11 @@ O conceito de equilíbrio de Nash, nomeado em homenagem ao matemático John Nash
 
 ### Definição Formal
 
-Em um jogo com $n$ jogadores, seja $S_i$ o conjunto de estratégias possíveis para o jogador $i$ e $u_i(s_1, s_2, \ldots, s_n)$ a função utilidade (payoff) do jogador $i$ quando os jogadores escolhem as estratégias $s_1, s_2, \ldots, s_n$, respectivamente. Um perfil de estratégia $(s_1^*, s_2^*, \ldots, s_n^*)$ é um equilíbrio de Nash se, para cada jogador $i$,
+Em um jogo com $$n$$ jogadores, seja $$S_i$$ o conjunto de estratégias possíveis para o jogador $$i$$ e $$u_i(s_1, s_2, \ldots, s_n)$$ a função utilidade (payoff) do jogador $$i$$ quando os jogadores escolhem as estratégias $$s_1, s_2, \ldots, s_n$$, respectivamente. Um perfil de estratégia $$(s_1^*, s_2^*, \ldots, s_n^*)$$ é um equilíbrio de Nash se, para cada jogador $$i$$,
 
-$u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \quad \text{para todo} \quad s_i \in S_i$
+$$u_i(s_i^*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \quad \text{para todo} \quad s_i \in S_i$$
 
-onde $s_{-i}^*$ representa as estratégias dos outros jogadores, exceto $i$.
+onde $$s_{-i}^*$$ representa as estratégias dos outros jogadores, exceto $$i$$.
 
 ### Aplicação em GANs
 
@@ -159,12 +159,12 @@ No contexto das GANs, o gerador e o discriminador podem ser vistos como dois jog
 
 Considere a função de perda original de uma GAN:
 
-$\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]$
+$$\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]$$
 
-No equilíbrio de Nash, o discriminador $D$ e o gerador $G$ atingem um ponto onde nenhum pode melhorar sua função objetivo sem alterar a estratégia do outro. Isso corresponde ao ponto onde:
+No equilíbrio de Nash, o discriminador $$D$$ e o gerador $$G$$ atingem um ponto onde nenhum pode melhorar sua função objetivo sem alterar a estratégia do outro. Isso corresponde ao ponto onde:
 
-- O discriminador $D$ maximiza a distinção entre dados reais e falsos.
-- O gerador $G$ minimiza a capacidade do discriminador de distinguir entre dados reais e falsos.
+- O discriminador $$D$$ maximiza a distinção entre dados reais e falsos.
+- O gerador $$G$$ minimiza a capacidade do discriminador de distinguir entre dados reais e falsos.
 
 Referência: Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
 
