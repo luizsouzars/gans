@@ -160,7 +160,7 @@ No contexto das GANs, o gerador e o discriminador podem ser vistos como dois jog
 Considere a função de perda original de uma GAN:
 
 $$
-\min_{Teste}
+\min_{G} \max_{d} V(D,G) = \mathbb{E}_{\mathbf{x}S
 $$
 
 $$
