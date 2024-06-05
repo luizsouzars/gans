@@ -160,10 +160,6 @@ No contexto das GANs, o gerador e o discriminador podem ser vistos como dois jog
 Considere a função de perda original de uma GAN:
 
 $$
-\min_{G} \max_{D} V(D,G) = \mathbb{E}_{\mathbf{x\sim p_{data}}}
-$$
-
-$$
 \min_{G}  \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]
 $$
 
