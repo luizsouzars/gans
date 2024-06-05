@@ -151,7 +151,7 @@ No campo da análise matemática, a continuidade de funções é um conceito cen
 
 Uma função $f: \mathbb{R}^n \to \mathbb{R}$ é chamada de Lipschitz contínua se existe uma constante $K \geq 0$ tal que, para todos $x_1, x_2 \in \mathbb{R}^n$,
 
-$|f(x_1) - f(x_2)| \leq K \|x_1 - x_2\|$
+$\|f(x_1) - f(x_2)\| \leq K \|x_1 - x_2\|$
 
 onde $\| \cdot \|$ denota uma norma (geralmente a norma euclidiana).
 
@@ -165,7 +165,7 @@ Intuitivamente, a condição de Lipschitz significa que a função $f$ não pode
 
 Considere a função linear $f(x) = 3x$ para $x \in \mathbb{R}$. Podemos verificar que $f$ é Lipschitz contínua com constante de Lipschitz $K = 3$:
 
-$|f(x_1) - f(x_2)| = |3x_1 - 3x_2| = 3|x_1 - x_2|$
+$\|f(x_1) - f(x_2)\| = \|3x_1 - 3x_2\| = 3\|x_1 - x_2\|$
 
 Aqui, $K = 3$ mostra que a função $f$ varia de maneira controlada.
 
@@ -173,7 +173,7 @@ Aqui, $K = 3$ mostra que a função $f$ varia de maneira controlada.
 
 No contexto das GANs, a condição de Lipschitz é usada para garantir a estabilidade do discriminador, especialmente em WGANs. A função de perda da WGAN requer que o discriminador (ou crítico) seja uma função 1-Lipschitz. Isso significa que, para todos $x_1, x_2$,
 
-$|D(x_1) - D(x_2)| \leq \|x_1 - x_2\|$
+$\|D(x_1) - D(x_2)\| \leq \\|x_1 - x_2\\|$
 
 Para impor essa condição, técnicas como corte de peso (weight clipping) ou penalidades de gradiente (gradient penalty) são aplicadas durante o treinamento.
 
