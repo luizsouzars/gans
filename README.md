@@ -183,7 +183,9 @@ Para impor essa condição, técnicas como corte de peso (weight clipping) ou pe
 
 Uma abordagem comum para assegurar a condição de Lipschitz é adicionar uma penalidade de gradiente à função de perda. Esta penalidade é definida como:
 
-$\mathbb{E}_{\hat{x} \sim p_{\hat{x}}} \left\[ (\|\nabla_{\hat{x}} D(\hat{x})\|_2 - 1)^2 \right\]$
+$$
+\mathbb{E}_{\hat{x} \sim p_{\hat{x}}} \left[(\|\nabla_{\hat{x}} D(\hat{x})\|_2 - 1)^2 \right]
+$$
 
 onde $\hat{x}$ são amostras interpoladas entre dados reais e gerados. Esta penalidade força o gradiente do discriminador a ser próximo de 1, ajudando a manter a função dentro da condição de 1-Lipschitz.
 
