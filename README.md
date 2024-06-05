@@ -142,7 +142,9 @@ As GANs são importantes porque representam um avanço significativo na capacida
 ## Conclusão
 
 As Redes Adversariais Generativas são uma das inovações mais empolgantes no campo da inteligência artificial nos últimos anos. Com suas capacidades únicas de geração de dados e suas diversas aplicações, as GANs continuarão a ser uma área de pesquisa ativa e uma ferramenta valiosa para a indústria. A medida que a tecnologia avança, podemos esperar ver ainda mais inovações e aplicações emergirem deste campo dinâmico.
-___
+
+---
+
 ## Função Lipschitz
 
 No campo da análise matemática, a continuidade de funções é um conceito central. Uma função é dita ser **Lipschitz contínua** se houver uma constante que limita a taxa de variação da função. Este conceito é útil em diversas áreas da matemática aplicada, incluindo a teoria das redes neurais e, especificamente, em GANs para assegurar a estabilidade do treinamento.
@@ -181,7 +183,7 @@ Para impor essa condição, técnicas como corte de peso (weight clipping) ou pe
 
 Uma abordagem comum para assegurar a condição de Lipschitz é adicionar uma penalidade de gradiente à função de perda. Esta penalidade é definida como:
 
-$\mathbb{E}_{\hat{x} \sim p_{\hat{x}}} \left[ (\|\nabla_{\hat{x}} D(\hat{x})\|_2 - 1)^2 \right]$
+$\mathbb{E}_{\hat{x} \sim p_{\hat{x}}} \left\[ (\|\nabla_{\hat{x}} D(\hat{x})\|_2 - 1)^2 \right\]$
 
 onde $\hat{x}$ são amostras interpoladas entre dados reais e gerados. Esta penalidade força o gradiente do discriminador a ser próximo de 1, ajudando a manter a função dentro da condição de 1-Lipschitz.
 
