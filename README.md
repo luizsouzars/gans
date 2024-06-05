@@ -160,7 +160,11 @@ No contexto das GANs, o gerador e o discriminador podem ser vistos como dois jog
 Considere a função de perda original de uma GAN:
 
 $$
-\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]
+\min_{Teste}
+$$
+
+$$
+\min_{G}  \max_{D} V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]
 $$
 
 No equilíbrio de Nash, o discriminador $D$ e o gerador $G$ atingem um ponto onde nenhum pode melhorar sua função objetivo sem alterar a estratégia do outro. Isso corresponde ao ponto onde:
