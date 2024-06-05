@@ -50,7 +50,7 @@ Onde:
 - $p_{\text{data}}(\mathbf{x})$ é a distribuição real dos dados.
 - $p_{\mathbf{z}}(\mathbf{z})$ é a distribuição de ruído (normalmente uma distribuição uniforme ou normal).
 
-O objetivo do gerador G é maximizar a probabilidade do discriminador D cometer um erro ao classificar uma amostra gerada como real. O discriminador, por sua vez, tenta maximizar sua precisão na classificação correta das amostras reais e geradas. Este jogo adversarial continua até que um equilíbrio de [Nash](#equilíbrio-de-nash) seja alcançado, onde nenhum dos jogadores (gerador ou discriminador) pode melhorar sua estratégia sem alterar a do outro.
+O objetivo do gerador G é maximizar a probabilidade do discriminador D cometer um erro ao classificar uma amostra gerada como real. O discriminador, por sua vez, tenta maximizar sua precisão na classificação correta das amostras reais e geradas. Este jogo adversarial continua até que um equilíbrio de [**Nash**](#equilíbrio-de-nash) seja alcançado, onde nenhum dos jogadores (gerador ou discriminador) pode melhorar sua estratégia sem alterar a do outro.
 
 ### WGAN (Wasserstein GAN)
 
