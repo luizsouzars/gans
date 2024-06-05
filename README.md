@@ -149,7 +149,7 @@ O conceito de equilíbrio de Nash, nomeado em homenagem ao matemático John Nash
 
 ### Definição Formal
 
-Em um jogo com $n$ jogadores, seja $S_i$ o conjunto de estratégias possíveis para o jogador $i$ e $u_i(s_1, s_2, \ldots, s_n)$ a função utilidade (payoff) do jogador $i$ quando os jogadores escolhem as estratégias $s_1, s_2, \ldots, s_n$, respectivamente. Um perfil de estratégia $(s_1^*, s_2^*, \ldots, s_n^*)$ é um equilíbrio de Nash se, para cada jogador $i$,
+Em um jogo com $n$ jogadores, seja $S_i$ o conjunto de estratégias possíveis para o jogador $i$ e $u_i(s_1, s_2, \ldots, s_n)$ a função utilidade (payoff) do jogador $i$ quando os jogadores escolhem as estratégias $s_1, s_2, \ldots, s_n$, respectivamente. Um perfil de estratégia $(s_{1^*}, s_{2^*}, \ldots, s_{n^*})$ é um equilíbrio de Nash se, para cada jogador $i$,
 
 $u_i(s_i^\*, s_{-i}^*) \geq u_i(s_i, s_{-i}^*) \quad \text{para todo} \quad s_i \in S_i$
 
