@@ -249,11 +249,11 @@ No setor financeiro, dados históricos de transações são críticos para desen
 
 #### **c. Automação e Condução Autônoma**
 
-Para o desenvolvimento de veículos autônomos, é necessário um grande volume de dados de diferentes cenários de condução. GANs são utilizadas para gerar cenários sintéticos, como condições climáticas adversas ou situações de tráfego raras, que são difíceis de capturar em testes reais. Esses dados sintéticos são então usados para treinar e testar sistemas de condução autônoma, garantindo que os veículos possam lidar com uma ampla variedade de situações [^3].
+Para o desenvolvimento de veículos autônomos, é necessário um grande volume de dados de diferentes cenários de condução. GANs são utilizadas para gerar cenários sintéticos, como condições climáticas adversas ou situações de tráfego raras, que são difíceis de capturar em testes reais. Esses dados sintéticos são então usados para treinar e testar sistemas de condução autônoma, garantindo que os veículos possam lidar com uma ampla variedade de situações.
 
 #### **d. Treinamento de Sistemas de Segurança**
 
-Em segurança cibernética, GANs podem ser usadas para gerar tráfegos de rede sintéticos que imitam comportamentos maliciosos. Esses dados são usados para treinar sistemas de detecção de intrusões e outros mecanismos de segurança, permitindo que eles reconheçam e respondam a ataques de maneira mais eficaz. A geração de tráfegos de rede sintéticos também permite a realização de testes de penetração e avaliação de segurança em um ambiente controlado e seguro [^4].
+Em segurança cibernética, GANs podem ser usadas para gerar tráfegos de rede sintéticos que imitam comportamentos maliciosos. Esses dados são usados para treinar sistemas de detecção de intrusões e outros mecanismos de segurança, permitindo que eles reconheçam e respondam a ataques de maneira mais eficaz. A geração de tráfegos de rede sintéticos também permite a realização de testes de penetração e avaliação de segurança em um ambiente controlado e seguro.
 
 ---
 
@@ -368,10 +368,6 @@ No equilíbrio de Nash, o discriminador $D$ e o gerador $G$ atingem um ponto ond
 [^1]: Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. Advances in neural information processing systems, 27.
 
 [^2]: Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein gan. arXiv preprint arXiv:1701.07875.
-
-[^3]: Goodfellow, I. (2016). NIPS 2016 tutorial: Generative adversarial networks. arXiv preprint arXiv:1701.00160.
-
-[^4]: Esteban, C., Hyland, S. L., & Rätsch, G. (2017). Real-valued (medical) time series generation with recurrent conditional gans. arXiv preprint arXiv:1706.02633.
 
 [^5]: Frid-Adar, M., Klang, E., Amitai, M., Goldberger, J., & Greenspan, H. (2018). Synthetic data augmentation using GAN for improved liver lesion classification. In 2018 IEEE 15th International Symposium on Biomedical Imaging (ISBI 2018) (pp. 289-293). IEEE.
 
