@@ -16,8 +16,6 @@ MathJax = {
 
 # Redes Adversariais Generativas (GANs): Histórico, Estrutura e Aplicações
 
-## Introdução
-
 As Redes Adversariais Generativas (GANs) surgiram como uma inovação revolucionária no campo da inteligência artificial e aprendizado de máquina. Introduzidas por Ian Goodfellow e seus colegas em 2014, as GANs rapidamente se destacaram por sua capacidade de gerar dados realistas a partir de entradas aleatórias. Exploraremos o histórico de desenvolvimento das GANs, suas estruturas principais e algumas de suas diversas aplicações.
 
 ## Histórico de Desenvolvimento
@@ -26,7 +24,7 @@ As GANs foram apresentadas pela primeira vez em um artigo de pesquisa intitulado
 
 A ideia central era treinar dois modelos simultaneamente: um gerador, que cria dados falsos, e um discriminador, que tenta distinguir entre dados reais e falsos. Este processo adversarial leva ambos os modelos a se aprimorarem mutuamente, resultando em um gerador capaz de criar dados extremamente realistas.
 
-Desde sua introdução, as GANs passaram por diversas melhorias e variações, como DCGANs (Deep Convolutional GANs), WGANs (Wasserstein GANs), e CycleGANs, cada uma com suas próprias inovações e aplicações específicas. Essas variações ampliaram ainda mais o alcance e a eficácia das GANs em diversas áreas.
+Desde sua introdução, as GANs passaram por diversas melhorias e variações, como [DCGANs (Deep Convolutional GANs)](#dcgans-deep-convolutional-generative-adversarial-networks), [WGANs (Wasserstein GANs)](#wgans-wasserstein-generative-adversarial-networks), e [CycleGANs](#cyclegans-cycle-consistent-generative-adversarial-networks), cada uma com suas próprias inovações e aplicações específicas. Essas variações ampliaram ainda mais o alcance e a eficácia das GANs em diversas áreas.
 
 ## Estrutura das GANs
 
