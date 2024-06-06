@@ -265,7 +265,7 @@ A distância de Wasserstein, também conhecida como distância de Earth-Mover, �
 
 A distância de Wasserstein de ordem 1 entre duas distribuições de probabilidade $ P $ e $ Q $ em um espaço métrico $(X, d)$ é definida como:
 
-$$W_1(P, Q) = \inf_{\gamma \in \Pi(P, Q)} \mathbb{E}_{(x, y) \sim \gamma} [d(x, y)]$$
+$$ W_1(P, Q) = \inf_{\gamma \in \Pi(P, Q)} \mathbb{E}_{(x, y) \sim \gamma} [d(x, y)] $$
 onde:
 - $\Pi(P, Q)$ é o conjunto de todas as distribuições conjuntas $\gamma(x, y)$ cujas marginais são $ P $ e $ Q $ respectivamente.
 - $ d(x, y) $ é a métrica do espaço $ X $ que mede a distância entre os pontos $ x $ e $ y $.
