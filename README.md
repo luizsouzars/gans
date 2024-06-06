@@ -52,16 +52,6 @@ Onde:
 
 O objetivo do gerador **G** é maximizar a probabilidade do discriminador **D** cometer um erro ao classificar uma amostra gerada como real. O discriminador, por sua vez, tenta maximizar sua precisão na classificação correta das amostras reais e geradas. Este jogo adversarial continua até que um equilíbrio de [Nash](#equilíbrio-de-nash) seja alcançado, onde nenhum dos jogadores (gerador ou discriminador) pode melhorar sua estratégia sem alterar a do outro.
 
-### WGAN (Wasserstein GAN)
-
-Uma variação importante das GANs é a WGAN, que modifica a função de perda para melhorar a estabilidade do treinamento e a qualidade das amostras geradas. A função de perda da WGAN é baseada na [distância de Wasserstein](#distância-de-wasserstein), também conhecida como distância de Earth-Mover. A função de perda da WGAN é:
-
-$$
-\min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]
-$$
-
-Aqui, $\mathcal{D}$ é o conjunto de todas as [funções $1$-Lipschitz](#função-lipschitz), o que implica que $D$ deve ser limitado em sua capacidade de variação (o que é geralmente alcançado através de penalidades de gradiente ou corte de peso).
-
 ## Composição das Redes Neurais do Gerador e do Discriminador
 
 ### Rede Neural do Gerador
@@ -73,12 +63,6 @@ A rede neural do Gerador (Generator) tem como objetivo gerar dados sintéticos q
 2. **Camadas Ocultas**: Essas camadas são compostas por uma série de camadas densas (fully connected layers) ou camadas convolucionais transpostas (transposed convolutional layers), também conhecidas como camadas deconvolucionais. Cada camada é geralmente seguida por uma função de ativação não linear, como ReLU (Rectified Linear Unit) ou Leaky ReLU. As camadas deconvolucionais são usadas para aumentar a dimensionalidade dos dados ao longo da rede.
 
 3. **Camada de Saída**: A última camada do Gerador produz os dados sintéticos. Se a tarefa for gerar imagens, essa camada terá uma ativação tanh para normalizar os valores de pixel entre -1 e 1.
-
-Exemplo de arquitetura de um Gerador (para imagens de 64x64 pixels):
-- Entrada: vetor de ruído $\mathbf{z}$ de dimensão 100.
-- Camada densa totalmente conectada, seguida por reshaping para formar um volume.
-- Várias camadas convolucionais transpostas, com funções de ativação ReLU e normalização de lote (batch normalization).
-- Camada de saída convolucional transposta com ativação tanh.
 
 Referência: Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
 
@@ -92,12 +76,103 @@ A rede neural do Discriminador (Discriminator) tem como objetivo classificar os 
 
 3. **Camada de Saída**: A última camada do Discriminador é uma camada densa que produz uma única probabilidade usando uma função de ativação sigmoid. Essa probabilidade indica a confiança do Discriminador de que a entrada é real.
 
-Exemplo de arquitetura de um Discriminador (para imagens de 64x64 pixels):
-- Entrada: imagem de 64x64 pixels.
-- Várias camadas convolucionais com funções de ativação Leaky ReLU e normalização de lote.
-- Camada densa totalmente conectada com ativação sigmoid para saída de probabilidade.
+### WGANs (Wasserstein Generative Adversarial Networks)
 
-Referência: Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
+As Wasserstein Generative Adversarial Networks (WGANs) são uma classe de Redes Adversariais Generativas (GANs) que utilizam a distância de Wasserstein como métrica para medir a dissimilaridade entre a distribuição dos dados reais e a distribuição dos dados gerados. Introduzidas por Martin Arjovsky, Soumith Chintala e Léon Bottou em 2017 [ˆ6], as WGANs foram projetadas para melhorar a estabilidade do treinamento e fornecer gradientes mais informativos.
+
+#### Motivação e Problemas das GANs Tradicionais
+
+As GANs tradicionais, baseadas na divergência de Jensen-Shannon, podem sofrer de instabilidade no treinamento e problemas de *vanishing gradients* ou *exploding gradients*, especialmente quando as distribuições reais e geradas não se sobrepõem significativamente.
+
+#### Estrutura das WGANs
+
+As WGANs seguem a estrutura básica das GANs, composta por um gerador e um discriminador (também chamado de "critic" em WGANs), mas utilizam a distância de Wasserstein como função de perda. A principal diferença está na maneira como a função de perda é formulada e nos métodos utilizados para garantir que o critic satisfaça a condição de Lipschitz.
+
+#### Função de Perda das WGANs
+
+A função de perda das WGANs é baseada na distância de Wasserstein de ordem 1:
+
+$$ \min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))] $$
+
+onde:
+- $ G $ é o gerador que mapeia um vetor de ruído $ \mathbf{z} $ para a distribuição dos dados gerados $ G(\mathbf{z}) $.
+- $ D $ é o critic que estima a "qualidade" dos dados, e $ \mathcal{D} $ é o conjunto de funções $ 1 $-Lipschitz.
+
+#### Garantindo a Condição de Lipschitz
+
+Para garantir que o critic $ D $ seja uma função $ 1 $-Lipschitz, as WGANs introduzem duas técnicas principais:
+
+1. **Corte de Peso (Weight Clipping)**: Inicialmente, Arjovsky et al. propuseram cortar os pesos do critic para um intervalo fixo $[-c, c]$. Isso, no entanto, pode levar a problemas de otimização e limitar a capacidade de aprendizado do critic.
+
+$$ W \leftarrow \text{clip}(W, -c, c) $$
+
+2. **Penalidade de Gradiente (Gradient Penalty)**: Uma técnica posterior e mais eficaz é a penalidade de gradiente, proposta por Gulrajani et al. em 2017. Esta técnica adiciona um termo à função de perda que penaliza desvios da norma do gradiente em relação a 1.
+
+$$ \mathcal{L} = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))] + \lambda \mathbb{E}_{\hat{\mathbf{x}} \sim p_{\hat{\mathbf{x}}}(\hat{\mathbf{x}})} \left[ (\|\nabla_{\hat{\mathbf{x}}} D(\hat{\mathbf{x}})\|_2 - 1)^2 \right] $$
+
+onde $ \hat{\mathbf{x}} $ são amostras interpoladas entre dados reais e gerados, e $ \lambda $ é um coeficiente de penalidade.
+
+#### Principais Diferenças das WGANs
+
+1. **Distância de Wasserstein**: As WGANs utilizam a distância de Wasserstein em vez da divergência de Jensen-Shannon, fornecendo uma medida mais suave e significativa da dissimilaridade entre as distribuições.
+2. **Gradientes Estáveis**: A função de perda da WGAN fornece gradientes mais estáveis e informativos, melhorando a convergência do treinamento.
+3. **Condicionamento de Lipschitz**: A imposição de que o critic seja uma função $ 1 $-Lipschitz, inicialmente por corte de peso e depois por penalidade de gradiente, ajuda a evitar problemas de *exploding gradients* ou *vanishing gradients*.
+
+#### Referências
+
+- Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein GAN. arXiv preprint arXiv:1701.07875.
+- Gulrajani, I., Ahmed, F., Arjovsky, M., Dumoulin, V., & Courville, A. (2017). Improved training of Wasserstein GANs. In Advances in Neural Information Processing Systems (pp. 5767-5777).
+
+
+### DCGANs (Deep Convolutional Generative Adversarial Networks)
+
+As DCGANs (Deep Convolutional Generative Adversarial Networks) são uma classe de Redes Adversariais Generativas (GANs) que utilizam redes neurais convolucionais profundas para melhorar a estabilidade e a qualidade da geração de imagens. Introduzidas por Alec Radford, Luke Metz e Soumith Chintala em 2015, as DCGANs se destacam pela sua arquitetura que explora as capacidades das redes convolucionais para capturar e gerar características visuais detalhadas.
+
+#### Estrutura das DCGANs
+
+As DCGANs seguem a estrutura básica das GANs, composta por um gerador e um discriminador, mas utilizam camadas convolucionais e convolucionais transpostas no lugar das camadas densas tradicionais.
+
+##### Gerador
+
+O gerador nas DCGANs mapeia um vetor de ruído aleatório $ \mathbf{z} $ em uma imagem. A arquitetura típica do gerador inclui:
+
+1. **Camada de Entrada**: Vetor de ruído $ \mathbf{z} $ (geralmente amostrado de uma distribuição normal).
+2. **Camadas Convolucionais Transpostas**: Essas camadas aumentam a resolução da imagem de forma progressiva, com funções de ativação ReLU e normalização de lote (batch normalization) aplicadas em cada camada.
+3. **Camada de Saída**: Camada convolucional transposta com ativação tanh para normalizar os valores de pixel entre -1 e 1.
+
+Equação representativa de uma camada convolucional transposta:
+
+$$ \text{ConvTransp}(x) = W * x + b $$
+
+onde $ * $ denota a operação de convolução transposta, $ W $ são os pesos e $ b $ são os vieses.
+
+##### Discriminador
+
+O discriminador nas DCGANs é uma rede convolucional que classifica as imagens como reais ou geradas. A arquitetura típica do discriminador inclui:
+
+1. **Camada de Entrada**: Imagem de entrada (real ou gerada).
+2. **Camadas Convolucionais**: Essas camadas reduzem a resolução da imagem de forma progressiva, com funções de ativação Leaky ReLU e normalização de lote (batch normalization) aplicadas em cada camada.
+3. **Camada de Saída**: Camada totalmente conectada com ativação sigmoid para produzir uma probabilidade entre 0 e 1, indicando se a imagem é real ou falsa.
+
+Equação representativa de uma camada convolucional:
+
+$$ \text{Conv}(x) = W * x + b $$
+
+onde $ * $ denota a operação de convolução, $ W $ são os pesos e $ b $ são os vieses.
+
+#### Principais Diferenças das DCGANs
+
+1. **Camadas Convolucionais**: Ao contrário das GANs tradicionais que usam camadas densas, as DCGANs utilizam camadas convolucionais e convolucionais transpostas, que são mais adequadas para capturar e gerar características visuais em dados de imagem.
+
+2. **Normalização de Lote**: A aplicação da normalização de lote (batch normalization) em quase todas as camadas do gerador e do discriminador ajuda a estabilizar o treinamento e a evitar problemas como o colapso de modos.
+
+3. **Funções de Ativação**: O uso de ReLU no gerador e Leaky ReLU no discriminador contribui para a estabilidade do treinamento e melhora a qualidade das imagens geradas.
+
+4. **Arquitetura Profunda**: As DCGANs utilizam arquiteturas mais profundas com mais camadas, permitindo a captura de padrões complexos nas imagens.
+
+### Referências
+
+- Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
 
 ## Aplicações das GANs
 
@@ -174,7 +249,7 @@ $$
 
 ### Vantagens da Distância de Wasserstein
 
-- **Estabilidade do Treinamento**: A distância de Wasserstein fornece gradientes significativos mesmo quando o gerador e o discriminador não se sobrepõem significativamente, evitando o problema do gradiente desaparecido.
+- **Estabilidade do Treinamento**: A distância de Wasserstein fornece gradientes significativos mesmo quando o gerador e o discriminador não se sobrepõem significativamente, evitando o problema de *vanishing gradients*.
 - **Convergência Melhorada**: WGANs tendem a ter uma convergência mais estável e uma melhor qualidade das amostras geradas em comparação com as GANs tradicionais.
 
 ### Referências
@@ -263,7 +338,7 @@ Referência: Nash, J. (1950). Equilibrium points in n-person games. Proceedings 
 
 ## Referências
 - Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
-- Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein gan. arXiv preprint arXiv:1701.07875.
+
 - Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
 - Zhu, J. Y., Park, T., Isola, P., & Efros, A. A. (2017). Unpaired image-to-image translation using cycle-consistent adversarial networks. In Proceedings of the IEEE international conference on computer vision (pp. 2223-2232).
 - Li, W., Yu, L., Cao, W., et al. (2018). Pretraining Hierarchical Contextual Networks with GAN for Automated Medical Image Analysis. In Medical Image Computing and Computer-Assisted Intervention – MICCAI 2018 (pp. 562-570).
@@ -277,3 +352,5 @@ Referência: Nash, J. (1950). Equilibrium points in n-person games. Proceedings 
 [^4]: Esteban, C., Hyland, S. L., & Rätsch, G. (2017). Real-valued (medical) time series generation with recurrent conditional gans. arXiv preprint arXiv:1706.02633.
 
 [ˆ5]: Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. Advances in neural information processing systems, 27.
+
+[ˆ6]: Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein gan. arXiv preprint arXiv:1701.07875.
