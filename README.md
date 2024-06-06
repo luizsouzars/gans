@@ -64,8 +64,6 @@ A rede neural do Gerador (Generator) tem como objetivo gerar dados sintéticos q
 
 3. **Camada de Saída**: A última camada do Gerador produz os dados sintéticos. Se a tarefa for gerar imagens, essa camada terá uma ativação tanh para normalizar os valores de pixel entre -1 e 1.
 
-Referência: Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
-
 ### Rede Neural do Discriminador
 
 A rede neural do Discriminador (Discriminator) tem como objetivo classificar os dados como reais ou falsos. A arquitetura típica do Discriminador inclui:
@@ -118,12 +116,6 @@ onde $ \hat{\mathbf{x}} $ são amostras interpoladas entre dados reais e gerados
 2. **Gradientes Estáveis**: A função de perda da WGAN fornece gradientes mais estáveis e informativos, melhorando a convergência do treinamento.
 3. **Condicionamento de Lipschitz**: A imposição de que o critic seja uma função $ 1 $-Lipschitz, inicialmente por corte de peso e depois por penalidade de gradiente, ajuda a evitar problemas de *exploding gradients* ou *vanishing gradients*.
 
-#### Referências
-
-- Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein GAN. arXiv preprint arXiv:1701.07875.
-- Gulrajani, I., Ahmed, F., Arjovsky, M., Dumoulin, V., & Courville, A. (2017). Improved training of Wasserstein GANs. In Advances in Neural Information Processing Systems (pp. 5767-5777).
-
-
 ### DCGANs (Deep Convolutional Generative Adversarial Networks)
 
 As DCGANs (Deep Convolutional Generative Adversarial Networks) são uma classe de Redes Adversariais Generativas (GANs) que utilizam redes neurais convolucionais profundas para melhorar a estabilidade e a qualidade da geração de imagens. Introduzidas por Alec Radford, Luke Metz e Soumith Chintala em 2015, as DCGANs se destacam pela sua arquitetura que explora as capacidades das redes convolucionais para capturar e gerar características visuais detalhadas.
@@ -169,10 +161,6 @@ onde $ * $ denota a operação de convolução, $ W $ são os pesos e $ b $ são
 3. **Funções de Ativação**: O uso de ReLU no gerador e Leaky ReLU no discriminador contribui para a estabilidade do treinamento e melhora a qualidade das imagens geradas.
 
 4. **Arquitetura Profunda**: As DCGANs utilizam arquiteturas mais profundas com mais camadas, permitindo a captura de padrões complexos nas imagens.
-
-### Referências
-
-- Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
 
 ## Aplicações das GANs
 
@@ -252,12 +240,6 @@ $$
 - **Estabilidade do Treinamento**: A distância de Wasserstein fornece gradientes significativos mesmo quando o gerador e o discriminador não se sobrepõem significativamente, evitando o problema de *vanishing gradients*.
 - **Convergência Melhorada**: WGANs tendem a ter uma convergência mais estável e uma melhor qualidade das amostras geradas em comparação com as GANs tradicionais.
 
-### Referências
-
-- Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein GAN. arXiv preprint arXiv:1701.07875.
-- Villani, C. (2008). Optimal Transport: Old and New. Springer-Verlag Berlin Heidelberg.
-
-
 ---
 
 ## Função Lipschitz
@@ -296,13 +278,9 @@ $$
 
 onde $\hat{x}$ são amostras interpoladas entre dados reais e gerados. Esta penalidade força o gradiente do discriminador a ser próximo de 1, ajudando a manter a função dentro da condição de 1-Lipschitz.
 
-Referência: Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein GAN. arXiv preprint arXiv:1701.07875.
-
 ### Importância na Estabilidade de GANs
 
 Garantir que o discriminador seja uma função Lipschitz é crucial para a estabilidade do treinamento em GANs. Sem essa condição, os gradientes podem explodir ou desaparecer, levando a um treinamento instável e à geração de amostras de baixa qualidade.
-
-Referência: Gulrajani, I., Ahmed, F., Arjovsky, M., Dumoulin, V., & Courville, A. (2017). Improved training of Wasserstein GANs. In Advances in Neural Information Processing Systems (pp. 5767-5777).
 
 ---
 
@@ -334,15 +312,9 @@ No equilíbrio de Nash, o discriminador $D$ e o gerador $G$ atingem um ponto ond
 - O discriminador $D$ maximiza a distinção entre dados reais e falsos.
 - O gerador $G$ minimiza a capacidade do discriminador de distinguir entre dados reais e falsos.
 
-Referência: Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
+---
 
 ## Referências
-- Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
-
-- Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
-- Zhu, J. Y., Park, T., Isola, P., & Efros, A. A. (2017). Unpaired image-to-image translation using cycle-consistent adversarial networks. In Proceedings of the IEEE international conference on computer vision (pp. 2223-2232).
-- Li, W., Yu, L., Cao, W., et al. (2018). Pretraining Hierarchical Contextual Networks with GAN for Automated Medical Image Analysis. In Medical Image Computing and Computer-Assisted Intervention – MICCAI 2018 (pp. 562-570).
-
 [^1]: Frid-Adar, M., Klang, E., Amitai, M., Goldberger, J., & Greenspan, H. (2018). Synthetic data augmentation using GAN for improved liver lesion classification. In 2018 IEEE 15th International Symposium on Biomedical Imaging (ISBI 2018) (pp. 289-293). IEEE.
 
 [^2]: Jordon, J., Yoon, J., & van der Schaar, M. (2018). PATE-GAN: Generating synthetic data with differential privacy guarantees. In International Conference on Learning Representations.
@@ -354,3 +326,13 @@ Referência: Nash, J. (1950). Equilibrium points in n-person games. Proceedings 
 [ˆ5]: Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. Advances in neural information processing systems, 27.
 
 [ˆ6]: Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein gan. arXiv preprint arXiv:1701.07875.
+
+- Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
+
+- Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
+
+- Zhu, J. Y., Park, T., Isola, P., & Efros, A. A. (2017). Unpaired image-to-image translation using cycle-consistent adversarial networks. In Proceedings of the IEEE international conference on computer vision (pp. 2223-2232).
+
+- Gulrajani, I., Ahmed, F., Arjovsky, M., Dumoulin, V., & Courville, A. (2017). Improved training of Wasserstein GANs. In Advances in Neural Information Processing Systems (pp. 5767-5777).
+
+- Li, W., Yu, L., Cao, W., et al. (2018). Pretraining Hierarchical Contextual Networks with GAN for Automated Medical Image Analysis. In Medical Image Computing and Computer-Assisted Intervention – MICCAI 2018 (pp. 562-570).
