@@ -1,7 +1,7 @@
 <script>
 MathJax = {
   tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
+    inlineMath: [['$', '$'], ['\$', '\$']]
   }
 };
 </script>
@@ -18,11 +18,11 @@ MathJax = {
 
 ## Introdução
 
-As Redes Adversariais Generativas (GANs) surgiram como uma inovação revolucionária no campo da inteligência artificial e aprendizado de máquina. Introduzidas por Ian Goodfellow e seus colegas em 2014, as GANs rapidamente se destacaram por sua capacidade de gerar dados realistas a partir de entradas aleatórias. Neste blogpost, exploraremos o histórico de desenvolvimento das GANs, suas estruturas principais e as diversas aplicações que as tornam uma ferramenta indispensável na pesquisa e na indústria.
+As Redes Adversariais Generativas (GANs) surgiram como uma inovação revolucionária no campo da inteligência artificial e aprendizado de máquina. Introduzidas por Ian Goodfellow e seus colegas em 2014, as GANs rapidamente se destacaram por sua capacidade de gerar dados realistas a partir de entradas aleatórias. Exploraremos o histórico de desenvolvimento das GANs, suas estruturas principais e algumas de suas diversas aplicações.
 
 ## Histórico de Desenvolvimento
 
-As GANs foram apresentadas pela primeira vez em um artigo de pesquisa intitulado "Generative Adversarial Nets" por Ian Goodfellow e colegas na conferência NeurIPS em 2014. A ideia central era treinar dois modelos simultaneamente: um gerador, que cria dados falsos, e um discriminador, que tenta distinguir entre dados reais e falsos. Este processo adversarial leva ambos os modelos a se aprimorarem mutuamente, resultando em um gerador capaz de criar dados extremamente realistas.
+As GANs foram apresentadas pela primeira vez em um artigo de pesquisa intitulado "Generative Adversarial Networks"[ˆ5] por Ian Goodfellow e colegas na conferência NeurIPS em 2014. A ideia central era treinar dois modelos simultaneamente: um gerador, que cria dados falsos, e um discriminador, que tenta distinguir entre dados reais e falsos. Este processo adversarial leva ambos os modelos a se aprimorarem mutuamente, resultando em um gerador capaz de criar dados extremamente realistas.
 
 Desde sua introdução, as GANs passaram por diversas melhorias e variações, como DCGANs (Deep Convolutional GANs), WGANs (Wasserstein GANs), e CycleGANs, cada uma com suas próprias inovações e aplicações específicas. Essas variações ampliaram ainda mais o alcance e a eficácia das GANs em diversas áreas.
 
@@ -34,14 +34,14 @@ A estrutura básica de uma GAN consiste em duas redes neurais principais:
 
 2. **[Discriminador](#rede-neural-do-discriminador) (Discriminator)**: Esta rede neural recebe tanto dados reais quanto dados falsos do gerador e tenta distinguir entre os dois. O discriminador é treinado para classificar corretamente os dados como reais ou falsos.
 
-O processo de treinamento das GANs é um jogo de soma zero onde o gerador tenta maximizar a probabilidade do discriminador cometer um erro, enquanto o discriminador tenta minimizar essa probabilidade. Em termos matemáticos, isso é frequentemente representado como uma minimax optimization problem.
+O processo de treinamento das GANs é um jogo de soma zero onde o gerador tenta maximizar a probabilidade do discriminador cometer um erro, enquanto o discriminador tenta minimizar essa probabilidade. Em termos matemáticos, isso é frequentemente representado como um problema de *minimax optimization*.
 
 ### O Problema Minimax
 
 O treinamento de uma GAN é formulado como um problema de otimização minimax entre o gerador e o discriminador. A função de perda original proposta por Goodfellow é:
 
 $$
-min_G max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]
+\min_G \max_D V(D, G) = \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [\log D(\mathbf{x})] + \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [\log (1 - D(G(\mathbf{z})))]
 $$
 
 Onde:
@@ -50,17 +50,17 @@ Onde:
 - $p_{\text{data}}(\mathbf{x})$ é a distribuição real dos dados.
 - $p_{\mathbf{z}}(\mathbf{z})$ é a distribuição de ruído (normalmente uma distribuição uniforme ou normal).
 
-O objetivo do gerador G é maximizar a probabilidade do discriminador D cometer um erro ao classificar uma amostra gerada como real. O discriminador, por sua vez, tenta maximizar sua precisão na classificação correta das amostras reais e geradas. Este jogo adversarial continua até que um equilíbrio de [**Nash**](#equilíbrio-de-nash) seja alcançado, onde nenhum dos jogadores (gerador ou discriminador) pode melhorar sua estratégia sem alterar a do outro.
+O objetivo do gerador **G** é maximizar a probabilidade do discriminador **D** cometer um erro ao classificar uma amostra gerada como real. O discriminador, por sua vez, tenta maximizar sua precisão na classificação correta das amostras reais e geradas. Este jogo adversarial continua até que um equilíbrio de [Nash](#equilíbrio-de-nash) seja alcançado, onde nenhum dos jogadores (gerador ou discriminador) pode melhorar sua estratégia sem alterar a do outro.
 
 ### WGAN (Wasserstein GAN)
 
-Uma variação importante das GANs é a WGAN, que modifica a função de perda para melhorar a estabilidade do treinamento e a qualidade das amostras geradas. A função de perda da WGAN é baseada na distância de Wasserstein, também conhecida como distância de Earth-Mover. A função de perda da WGAN é:
+Uma variação importante das GANs é a WGAN, que modifica a função de perda para melhorar a estabilidade do treinamento e a qualidade das amostras geradas. A função de perda da WGAN é baseada na [distância de Wasserstein](#distância-de-wasserstein), também conhecida como distância de Earth-Mover. A função de perda da WGAN é:
 
 $$
 \min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]
 $$
 
-Aqui, $\mathcal{D}$ é o conjunto de todas as funções $1$-Lipschitz, o que implica que $D$ deve ser limitado em sua capacidade de variação (o que é geralmente alcançado através de penalidades de gradiente ou corte de peso).
+Aqui, $\mathcal{D}$ é o conjunto de todas as [funções $1$-Lipschitz](#função-lipschitz), o que implica que $D$ deve ser limitado em sua capacidade de variação (o que é geralmente alcançado através de penalidades de gradiente ou corte de peso).
 
 ## Composição das Redes Neurais do Gerador e do Discriminador
 
@@ -145,6 +145,46 @@ As Redes Adversariais Generativas são uma das inovações mais empolgantes no c
 
 ---
 
+## Distância de Wasserstein
+
+A distância de Wasserstein, também conhecida como distância de Earth-Mover, é uma métrica usada para medir a dissimilaridade entre duas distribuições de probabilidade. Ela é amplamente utilizada em várias áreas, incluindo teoria de transporte ótimo, economia e, mais recentemente, em aprendizado de máquina, especialmente em Wasserstein GANs (WGANs) para melhorar a estabilidade do treinamento.
+
+### Definição Formal
+
+A distância de Wasserstein de ordem 1 entre duas distribuições de probabilidade $ P $ e $ Q $ em um espaço métrico $(X, d)$ é definida como:
+
+$$
+W_1(P, Q) = \inf_{\gamma \in \Pi(P, Q)} \mathbb{E}_{(x, y) \sim \gamma} [d(x, y)] 
+$$
+onde:
+- $\Pi(P, Q)$ é o conjunto de todas as distribuições conjuntas $\gamma(x, y)$ cujas marginais são $ P $ e $ Q $ respectivamente.
+- $ d(x, y) $ é a métrica do espaço $ X $ que mede a distância entre os pontos $ x $ e $ y $.
+
+### Intuição
+
+A distância de Wasserstein pode ser intuitivamente entendida como o custo mínimo necessário para transformar uma distribuição em outra. Imagine duas distribuições como pilhas de terra; a distância de Wasserstein é a quantidade mínima de "trabalho" necessária para mover a terra de uma pilha para formar a outra, onde o trabalho é definido como a quantidade de terra movida multiplicada pela distância que ela é movida.
+
+### Aplicação em GANs
+
+No contexto das Wasserstein GANs (WGANs), a distância de Wasserstein é usada como uma métrica de dissimilaridade entre a distribuição dos dados reais e a distribuição dos dados gerados. A função de perda da WGAN é baseada na distância de Wasserstein, o que proporciona gradientes mais informativos e estáveis durante o treinamento. A função de perda da WGAN é definida como:
+
+$$
+\min_G \max_{D \in \mathcal{D}} \mathbb{E}_{\mathbf{x} \sim p_{\text{data}}(\mathbf{x})} [D(\mathbf{x})] - \mathbb{E}_{\mathbf{z} \sim p_{\mathbf{z}}(\mathbf{z})} [D(G(\mathbf{z}))]
+$$
+
+### Vantagens da Distância de Wasserstein
+
+- **Estabilidade do Treinamento**: A distância de Wasserstein fornece gradientes significativos mesmo quando o gerador e o discriminador não se sobrepõem significativamente, evitando o problema do gradiente desaparecido.
+- **Convergência Melhorada**: WGANs tendem a ter uma convergência mais estável e uma melhor qualidade das amostras geradas em comparação com as GANs tradicionais.
+
+### Referências
+
+- Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein GAN. arXiv preprint arXiv:1701.07875.
+- Villani, C. (2008). Optimal Transport: Old and New. Springer-Verlag Berlin Heidelberg.
+
+
+---
+
 ## Função Lipschitz
 
 No campo da análise matemática, a continuidade de funções é um conceito central. Uma função é dita ser **Lipschitz contínua** se houver uma constante que limita a taxa de variação da função. Este conceito é útil em diversas áreas da matemática aplicada, incluindo a teoria das redes neurais e, especificamente, em GANs para assegurar a estabilidade do treinamento.
@@ -162,14 +202,6 @@ A menor constante $K$ que satisfaz esta condição é chamada de **constante de 
 ### Intuição
 
 Intuitivamente, a condição de Lipschitz significa que a função $f$ não pode oscilar ou variar mais rapidamente do que uma taxa linear determinada pela constante $K$. Isso garante que pequenas mudanças na entrada resultem em mudanças controladas na saída, evitando comportamentos erráticos.
-
-### Exemplo Simples
-
-Considere a função linear $f(x) = 3x$ para $x \in \mathbb{R}$. Podemos verificar que $f$ é Lipschitz contínua com constante de Lipschitz $K = 3$:
-
-$\|f(x_1) - f(x_2)\| = \|3x_1 - 3x_2\| = 3\|x_1 - x_2\|$
-
-Aqui, $K = 3$ mostra que a função $f$ varia de maneira controlada.
 
 ### Aplicação em GANs
 
@@ -229,19 +261,12 @@ No equilíbrio de Nash, o discriminador $D$ e o gerador $G$ atingem um ponto ond
 
 Referência: Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
 
-
 ## Referências
-
-- Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. Advances in neural information processing systems, 27.
 - Radford, A., Metz, L., & Chintala, S. (2015). Unsupervised representation learning with deep convolutional generative adversarial networks. arXiv preprint arXiv:1511.06434.
 - Arjovsky, M., Chintala, S., & Bottou, L. (2017). Wasserstein gan. arXiv preprint arXiv:1701.07875.
 - Nash, J. (1950). Equilibrium points in n-person games. Proceedings of the National Academy of Sciences, 36(1), 48-49.
 - Zhu, J. Y., Park, T., Isola, P., & Efros, A. A. (2017). Unpaired image-to-image translation using cycle-consistent adversarial networks. In Proceedings of the IEEE international conference on computer vision (pp. 2223-2232).
-- Frid-Adar, M., Klang, E., Amitai, M., Goldberger, J., & Greenspan, H. (2018). Synthetic data augmentation using GAN for improved liver lesion classification. In 2018 IEEE 15th International Symposium on Biomedical Imaging (ISBI 2018) (pp. 289-293). IEEE.
-- Esteban, C., Hyland, S. L., & Rätsch, G. (2017). Real-valued (medical) time series generation with recurrent conditional gans. arXiv preprint arXiv:1706.02633.
-Goodfellow, I. (2016). NIPS 2016 tutorial: Generative adversarial networks. arXiv preprint arXiv:1701.00160.
 - Li, W., Yu, L., Cao, W., et al. (2018). Pretraining Hierarchical Contextual Networks with GAN for Automated Medical Image Analysis. In Medical Image Computing and Computer-Assisted Intervention – MICCAI 2018 (pp. 562-570).
-- Jordon, J., Yoon, J., & van der Schaar, M. (2018). PATE-GAN: Generating synthetic data with differential privacy guarantees. In International Conference on Learning Representations.
 
 [^1]: Frid-Adar, M., Klang, E., Amitai, M., Goldberger, J., & Greenspan, H. (2018). Synthetic data augmentation using GAN for improved liver lesion classification. In 2018 IEEE 15th International Symposium on Biomedical Imaging (ISBI 2018) (pp. 289-293). IEEE.
 
@@ -250,3 +275,5 @@ Goodfellow, I. (2016). NIPS 2016 tutorial: Generative adversarial networks. arXi
 [^3]: Goodfellow, I. (2016). NIPS 2016 tutorial: Generative adversarial networks. arXiv preprint arXiv:1701.00160.
 
 [^4]: Esteban, C., Hyland, S. L., & Rätsch, G. (2017). Real-valued (medical) time series generation with recurrent conditional gans. arXiv preprint arXiv:1706.02633.
+
+[ˆ5]: Goodfellow, I., Pouget-Abadie, J., Mirza, M., Xu, B., Warde-Farley, D., Ozair, S., ... & Bengio, Y. (2014). Generative adversarial nets. Advances in neural information processing systems, 27.
