@@ -78,7 +78,7 @@ A rede neural do Discriminador (Discriminator) tem como objetivo classificar os 
 
 ## WGANs (Wasserstein Generative Adversarial Networks)
 
-As Wasserstein Generative Adversarial Networks (WGANs) são uma classe de Redes Adversariais Generativas (GANs) que utilizam a [distância de Wasserstein](#distância-de-wasserstein) como métrica para medir a dissimilaridade entre a distribuição dos dados reais e a distribuição dos dados gerados. Introduzidas por Martin Arjovsky, Soumith Chintala e Léon Bottou em 2017, as WGANs foram projetadas para melhorar a estabilidade do treinamento e fornecer gradientes mais informativos [^2].
+As Wasserstein Generative Adversarial Networks (WGANs) são uma classe de Redes Adversariais Generativas (GANs) que utilizam a [distância de Wasserstein](#distância-de-wasserstein) como métrica para medir a dissimilaridade entre a distribuição dos dados reais e a distribuição dos dados gerados. Introduzidas por Martin Arjovsky, Soumith Chintala e Léon Bottou em 2017 [^2], as WGANs foram projetadas para melhorar a estabilidade do treinamento e fornecer gradientes mais informativos.
 
 ### Motivação e Problemas das GANs Tradicionais
 
@@ -86,7 +86,7 @@ As GANs tradicionais, baseadas na divergência de Jensen-Shannon, podem sofrer d
 
 ### Estrutura das WGANs
 
-As WGANs seguem a estrutura básica das GANs, composta por um gerador e um discriminador (também chamado de "critic" em WGANs), mas utilizam a distância de Wasserstein como função de perda. A principal diferença está na maneira como a função de perda é formulada e nos métodos utilizados para garantir que o critic satisfaça a condição de Lipschitz.
+As WGANs seguem a estrutura básica das GANs, composta por um gerador e um discriminador (também chamado de "critic" em WGANs), mas utilizam a distância de Wasserstein como função de perda. A principal diferença está na maneira como a função de perda é formulada e nos métodos utilizados para garantir que o critic satisfaça a condição de [Lipschitz](#função-lipschitz).
 
 ### Função de Perda das WGANs
 
@@ -100,7 +100,7 @@ onde:
 
 ### Garantindo a Condição de Lipschitz
 
-Para garantir que o critic $ D $ seja uma [função $ 1 $-Lipschitz](#função-lipschitz), as WGANs introduzem duas técnicas principais:
+Para garantir que o critic $ D $ seja uma função $ 1 $-Lipschitz, as WGANs introduzem duas técnicas principais:
 
 1. **Corte de Peso (Weight Clipping)**: Inicialmente, Arjovsky et al.[^2] propuseram cortar os pesos do critic para um intervalo fixo $[-c, c]$. Isso, no entanto, pode levar a problemas de otimização e limitar a capacidade de aprendizado do critic.
 
