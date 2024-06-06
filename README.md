@@ -22,7 +22,7 @@ As Redes Adversariais Generativas (GANs) surgiram como uma inovação revolucion
 
 ## Histórico de Desenvolvimento
 
-As GANs foram apresentadas pela primeira vez em um artigo de pesquisa intitulado "Generative Adversarial Networks"[ˆ5] por Ian Goodfellow e colegas na conferência NeurIPS em 2014. A ideia central era treinar dois modelos simultaneamente: um gerador, que cria dados falsos, e um discriminador, que tenta distinguir entre dados reais e falsos. Este processo adversarial leva ambos os modelos a se aprimorarem mutuamente, resultando em um gerador capaz de criar dados extremamente realistas.
+As GANs foram apresentadas pela primeira vez em um artigo de pesquisa intitulado "Generative Adversarial Networks" [ˆ5] por Ian Goodfellow e colegas na conferência NeurIPS em 2014. A ideia central era treinar dois modelos simultaneamente: um gerador, que cria dados falsos, e um discriminador, que tenta distinguir entre dados reais e falsos. Este processo adversarial leva ambos os modelos a se aprimorarem mutuamente, resultando em um gerador capaz de criar dados extremamente realistas.
 
 Desde sua introdução, as GANs passaram por diversas melhorias e variações, como DCGANs (Deep Convolutional GANs), WGANs (Wasserstein GANs), e CycleGANs, cada uma com suas próprias inovações e aplicações específicas. Essas variações ampliaram ainda mais o alcance e a eficácia das GANs em diversas áreas.
 
