@@ -264,7 +264,7 @@ Em segurança cibernética, GANs podem ser usadas para gerar tráfegos de rede s
 
 ## Exemplo Prático com PyTorch
 
-O repositório com todos os códigos e imagens estão disponíveis [neste repositório](https://github.com/luizsouzars/gans.git).
+O repositório com todos os códigos e imagens estão disponíveis [neste link](https://github.com/luizsouzars/gans.git).
 
 #### **Parâmetros**:
 - epochs: 100
@@ -313,7 +313,12 @@ Camadas:
 Saída:
 1. Uma probabilidade de que a imagem seja real ou falsa.
 
-
+#### Imagens do treinamento
+Evolução dos gradientes
+| Gerador   | Discriminador |
+|:--------:|:--------:|
+| <p align="left"> <img src="gan_project/outputs/generator_gradients.gif" alt="generator_gradients" style="width:300px;height:auto;"></p>
+| <p align="left"> <img src="gan_project/outputs/discriminator_gradients.gif" alt="discriminator_gradients" style="width:300px;height:auto;"></p>| 
 
 ---
 
