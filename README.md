@@ -264,7 +264,7 @@ Em segurança cibernética, GANs podem ser usadas para gerar tráfegos de rede s
 
 ## Exemplo Prático com PyTorch
 
-O repositório com todos os códigos e imagens estão disponíveis [neste link](https://github.com/luizsouzars/gans.git).
+O repositório com todos os códigos e imagens estão disponíveis [**neste link**](https://github.com/luizsouzars/gans.git).
 
 #### Parâmetros:
 - epochs: 100
@@ -277,7 +277,7 @@ Durante o treinamento do modelo gerados, buscamos salvar aquele com menor Loss d
 
 Entrada:
 
-1. Um vetor de ruído nz (normalmente uma distribuição gaussiana).
+1. Um vetor de ruído $nz$ (normalmente uma distribuição gaussiana).
 
 Camadas:
 
@@ -318,28 +318,28 @@ Saída:
 #### Imagens de treinamento
 
 <p align="center">
-<img src="gan_project/outputs/generated_images.gif" alt="generated_images" style="width:450px;height:auto;">
+<img src="gan_project/outputs/generated_images.gif" alt="generated_images" style="width:600px;height:auto;">
 </p>
 <p align="center">
 <em>Imagens geradas durante o treinamento</em>
 </p>
 
 <p align="center">
-<img src="gan_project/outputs/generator_gradients.gif" alt="generator_gradients" style="width:450px;height:auto;">
+<img src="gan_project/outputs/generator_gradients.gif" alt="generator_gradients" style="width:600px;height:auto;">
 </p>
 <p align="center">
 <em>Evolução dos gradientes do gerador</em>
 </p>
 
 <p align="center">
-<img src="gan_project/outputs/discriminator_gradients.gif" alt="discriminator_gradients" style="width:450px;height:auto;">
+<img src="gan_project/outputs/discriminator_gradients.gif" alt="discriminator_gradients" style="width:600px;height:auto;">
 </p>
 <p align="center">
 <em>Evolução dos gradientes do discriminador</em>
 </p>
 
 <p align="center">
-<img src="gan_project/outputs/losses.png" alt="loss" style="width:450px;height:auto;">
+<img src="gan_project/outputs/losses.png" alt="loss" style="width:600px;height:auto;">
 </p>
 <p align="center">
 <em>Loss de treinamento</em>
@@ -347,7 +347,7 @@ Saída:
 
 #### Conjunto de Imagens Sintéticas Geradas pelo Modelo Treinado
 <p align="center">
-<img src="gan_project/outputs/generated_synthetic_images.png" alt="generated_synthetic_images" style="width:450px;height:auto;">
+<img src="gan_project/outputs/generated_synthetic_images.png" alt="generated_synthetic_images" style="width:600px;height:auto;">
 </p>
 <p align="center">
 <em>Imagens Sintéticas Geradas pelo Modelo Treinado</em>
