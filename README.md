@@ -318,10 +318,7 @@ Saída:
 #### Imagens de treinamento
 
 <p align="center">
-<img src="gan_project/outputs/train.gif" alt="train" style="width:600px;height:auto;">
-</p>
-<p align="center">
-<em>Imagens geradas durante o treinamento</em>
+<img src="gan_project/outputs/train.gif" alt="train" style="width:350px;height:auto;">
 </p>
 
 <!-- <p align="center">
