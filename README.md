@@ -266,12 +266,14 @@ Em segurança cibernética, GANs podem ser usadas para gerar tráfegos de rede s
 
 O repositório com todos os códigos e imagens estão disponíveis [neste link](https://github.com/luizsouzars/gans.git).
 
-#### **Parâmetros**:
+#### Parâmetros:
 - epochs: 100
 - batch_size: 64
 - learning_rate: 0.0002
 
-#### **Estrutura da Rede do Gerador**
+Durante o treinamento do modelo gerados, buscamos salvar aquele com menor Loss dentre todas as épocas. Este, foi considerado o melhor modelo e salvo para uso na geração de um conjunto de imagens sintéticas.
+
+#### Estrutura da Rede do Gerador
 
 Entrada:
 
@@ -295,7 +297,7 @@ Saída:
 
 1. Uma imagem gerada de tamanho (image_size, image_size).
 
-#### **Estrutura da Rede do Gerador**
+#### Estrutura da Rede do Gerador
 
 Entrada:
 1. Uma imagem de tamanho (image_size, image_size).
@@ -313,12 +315,43 @@ Camadas:
 Saída:
 1. Uma probabilidade de que a imagem seja real ou falsa.
 
-#### Imagens do treinamento
-Evolução dos gradientes
-| Gerador   | Discriminador |
-|:--------:|:--------:|
-| <p align="left"> <img src="gan_project/outputs/generator_gradients.gif" alt="generator_gradients" style="width:300px;height:auto;"></p>
-| <p align="left"> <img src="gan_project/outputs/discriminator_gradients.gif" alt="discriminator_gradients" style="width:300px;height:auto;"></p>| 
+#### Imagens de treinamento
+
+<p align="center">
+<img src="gan_project/outputs/generated_images.gif" alt="generated_images" style="width:450px;height:auto;">
+</p>
+<p align="center">
+<em>Imagens geradas durante o treinamento</em>
+</p>
+
+<p align="center">
+<img src="gan_project/outputs/generator_gradients.gif" alt="generator_gradients" style="width:450px;height:auto;">
+</p>
+<p align="center">
+<em>Evolução dos gradientes do gerador</em>
+</p>
+
+<p align="center">
+<img src="gan_project/outputs/discriminator_gradients.gif" alt="discriminator_gradients" style="width:450px;height:auto;">
+</p>
+<p align="center">
+<em>Evolução dos gradientes do discriminador</em>
+</p>
+
+<p align="center">
+<img src="gan_project/outputs/losses.png" alt="loss" style="width:450px;height:auto;">
+</p>
+<p align="center">
+<em>Loss de treinamento</em>
+</p>
+
+#### Conjunto de Imagens Sintéticas Geradas pelo Modelo Treinado
+<p align="center">
+<img src="gan_project/outputs/generated_synthetic_images.png" alt="generated_synthetic_images" style="width:450px;height:auto;">
+</p>
+<p align="center">
+<em>Imagens Sintéticas Geradas pelo Modelo Treinado</em>
+</p>
 
 ---
 
