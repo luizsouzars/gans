@@ -354,7 +354,7 @@ Saída:
 </p>
 
 ---
-
+# Conteúdos Relacionados
 ## Distância de Wasserstein
 
 A distância de Wasserstein, também conhecida como distância de Earth-Mover, é uma métrica usada para medir a dissimilaridade entre duas distribuições de probabilidade. Ela é amplamente utilizada em várias áreas, incluindo teoria de transporte ótimo, economia e, mais recentemente, em aprendizado de máquina, especialmente em Wasserstein GANs (WGANs) para melhorar a estabilidade do treinamento.
