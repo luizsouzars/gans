@@ -16,14 +16,14 @@ MathJax = {
 
 # Redes Adversariais Generativas (GANs): Histórico, Estrutura e Aplicações
 
+As Redes Adversariais Generativas (GANs) surgiram como uma inovação revolucionária no campo da inteligência artificial e aprendizado de máquina. Introduzidas por Ian Goodfellow e seus colegas em 2014, as GANs rapidamente se destacaram por sua capacidade de gerar dados realistas a partir de entradas aleatórias. Exploraremos o histórico de desenvolvimento das GANs, suas estruturas principais e algumas de suas diversas aplicações.
+
 <p align="center">
 <img src="imgs/GANs-Generative-adversarial-networks-GANs-are-deep-neural-network-architectures.tif.png" alt="GAN" style="width:600px;height:auto;">
 </p>
 <p align="center">
 <em>Representação de uma GAN</em>
 </p>
-
-As Redes Adversariais Generativas (GANs) surgiram como uma inovação revolucionária no campo da inteligência artificial e aprendizado de máquina. Introduzidas por Ian Goodfellow e seus colegas em 2014, as GANs rapidamente se destacaram por sua capacidade de gerar dados realistas a partir de entradas aleatórias. Exploraremos o histórico de desenvolvimento das GANs, suas estruturas principais e algumas de suas diversas aplicações.
 
 ## Histórico de Desenvolvimento
 
@@ -259,6 +259,61 @@ Para o desenvolvimento de veículos autônomos, é necessário um grande volume 
 #### **d. Treinamento de Sistemas de Segurança**
 
 Em segurança cibernética, GANs podem ser usadas para gerar tráfegos de rede sintéticos que imitam comportamentos maliciosos. Esses dados são usados para treinar sistemas de detecção de intrusões e outros mecanismos de segurança, permitindo que eles reconheçam e respondam a ataques de maneira mais eficaz. A geração de tráfegos de rede sintéticos também permite a realização de testes de penetração e avaliação de segurança em um ambiente controlado e seguro.
+
+---
+
+## Exemplo Prático com PyTorch
+
+O repositório com todos os códigos e imagens estão disponíveis [neste repositório](https://github.com/luizsouzars/gans.git).
+
+#### **Parâmetros**:
+- epochs: 100
+- batch_size: 64
+- learning_rate: 0.0002
+
+#### **Estrutura da Rede do Gerador**
+
+Entrada:
+
+1. Um vetor de ruído nz (normalmente uma distribuição gaussiana).
+
+Camadas:
+
+1. **nn.Linear(nz, 256):** Camada linear que mapeia o vetor de ruído para 256 neurônios.
+2. **nn.BatchNorm1d(256):** Normalização em batch para estabilizar o treinamento.
+3. **nn.ReLU(True):** Função de ativação ReLU.
+4. **nn.Linear(256, 512):** Camada linear que mapeia 256 neurônios para 512 neurônios.
+5. **nn.BatchNorm1d(512):** Normalização em batch.
+6. **nn.ReLU(True):** Função de ativação ReLU.
+7. **nn.Linear(512, 1024):** Camada linear que mapeia 512 neurônios para 1024 neurônios.
+8. **nn.BatchNorm1d(1024):** Normalização em batch.
+9. **nn.ReLU(True):** Função de ativação ReLU.
+10. **nn.Linear(1024, image_size * image_size):** Camada linear que mapeia 1024 neurônios para o tamanho da imagem.
+11. **nn.Tanh():** Função de ativação Tanh para manter os valores da imagem entre -1 e 1.
+
+Saída:
+
+1. Uma imagem gerada de tamanho (image_size, image_size).
+
+#### **Estrutura da Rede do Gerador**
+
+Entrada:
+1. Uma imagem de tamanho (image_size, image_size).
+
+Camadas:
+1. **nn.Linear(image_size * image_size, 1024):** Camada linear que mapeia a imagem para 1024 neurônios.
+2. **nn.LeakyReLU(0.2, inplace=True):** Função de ativação LeakyReLU.
+3. **nn.Linear(1024, 512):** Camada linear que mapeia 1024 neurônios para 512 neurônios.
+4. **nn.LeakyReLU(0.2, inplace=True):** Função de ativação LeakyReLU.
+5. **nn.Linear(512, 256):** Camada linear que mapeia 512 neurônios para 256 neurônios.
+6. **nn.LeakyReLU(0.2, inplace=True):** Função de ativação LeakyReLU.
+7. **nn.Linear(256, 1):** Camada linear que mapeia 256 neurônios para 1 neurônio.
+8. **nn.Sigmoid():** Função de ativação Sigmoid para obter uma probabilidade.
+
+Saída:
+1. Uma probabilidade de que a imagem seja real ou falsa.
+
+
 
 ---
 
