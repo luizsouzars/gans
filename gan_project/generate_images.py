@@ -9,7 +9,7 @@ def load_model(path, nz, image_size, device):
     model.eval()
     return model
 
-def generate_and_save_images(model, nz, num_images, output_dir='synthetic_images'):
+def generate_and_save_images(model, nz, num_images, output_dir='outputs'):
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     
@@ -26,7 +26,7 @@ def generate_and_save_images(model, nz, num_images, output_dir='synthetic_images
         ax.axis('off')
     
     plt.tight_layout()
-    plt.savefig(os.path.join(output_dir, 'generated_images.png'))
+    plt.savefig(os.path.join(output_dir, 'generated_synthetic_images.png'))
     plt.close(fig)
 
 if __name__ == '__main__':

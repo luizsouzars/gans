@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import numpy as np
 import os
 
 # Configurando o estilo e as cores dos plots
@@ -50,11 +49,15 @@ def plot_gradients(gradients, epoch, output_dir='gradients'):
     plt.savefig(os.path.join(output_dir, f'epoch_{epoch}.png'))
     plt.close(fig)
 
-def plot_losses(G_losses, D_losses, output_dir='losses'):
+def plot_losses(G_losses, D_losses, best_epoch, best_loss, output_dir='outputs'):
     # Criar diretório se não existir
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
-    
+
+    # Definir os limites do eixo y com base no primeiro valor de Loss
+    y_max = max(G_losses[0], D_losses[0])
+    y_min = 0  # Definindo o limite inferior como 0 para uma melhor visualização
+
     plt.figure(figsize=(10, 5))
     plt.plot(G_losses, label='Generator Loss', color=colors['generator_loss'])
     plt.plot(D_losses, label='Discriminator Loss', color=colors['discriminator_loss'])
@@ -62,6 +65,14 @@ def plot_losses(G_losses, D_losses, output_dir='losses'):
     plt.ylabel('Loss')
     plt.legend(loc='best')
     plt.title('Generator and Discriminator Loss During Training')
+    plt.ylim(y_min, y_max * 1.1)  # Adicionar um pequeno espaço acima do maior valor para melhor visualização
+    
+    # Adicionar um marcador no melhor valor do gerador
+    plt.plot(best_epoch, best_loss, 'ro')  # Marcador vermelho
+    plt.text(best_epoch, best_loss + 0.05 * y_max, f'Best Generator Loss\nEpoch: {best_epoch+1}\nLoss: {best_loss:.4f}', 
+             fontsize=8, color='black', ha='center', va='bottom',
+             bbox=dict(facecolor='white', edgecolor='gray', boxstyle='round,pad=0.3', alpha=0.7))
+    
     plt.tight_layout()
     plt.savefig(os.path.join(output_dir, 'losses.png'))
     plt.close()

@@ -1,6 +1,6 @@
+import os
 import torch
 from tqdm import tqdm
-import os
 from utils.visualize import plot_generated_images, plot_gradients, plot_losses
 
 def get_gradients(model):
@@ -15,11 +15,12 @@ def save_model(model, epoch, path='models', filename='generator_best.pth'):
         os.makedirs(path)
     torch.save(model.state_dict(), os.path.join(path, filename))
 
-def train_gan(netG, netD, dataloader, criterion, optimizerG, optimizerD, nz, epochs, image_size, device):
+def train_gan(netG, netD, dataloader, criterion, optimizerG, optimizerD, nz, epochs, image_size, device, save_interval):
     fixed_noise = torch.randn(64, nz, device=device)
     G_losses = []
     D_losses = []
     best_g_loss = float('inf')  # Inicializando com infinito
+    best_epoch = 0
 
     for epoch in range(epochs):
         with tqdm(total=len(dataloader), desc=f"Epoch {epoch + 1}/{epochs}", unit="batch") as pbar:
@@ -60,8 +61,8 @@ def train_gan(netG, netD, dataloader, criterion, optimizerG, optimizerD, nz, epo
                 })
                 pbar.update(1)
 
-            # Geração de imagens para visualização e salvamento a cada 10 épocas
-            if (epoch + 1) % 10 == 0:
+            # Geração de imagens para visualização e salvamento em intervalos definidos
+            if (epoch + 1) % save_interval == 0:
                 with torch.no_grad():
                     fake = netG(fixed_noise).detach().cpu()
                 plot_generated_images(fake, epoch + 1)
@@ -80,7 +81,8 @@ def train_gan(netG, netD, dataloader, criterion, optimizerG, optimizerD, nz, epo
             # Salvar o melhor modelo do gerador
             if errG.item() < best_g_loss:
                 best_g_loss = errG.item()
+                best_epoch = epoch
                 save_model(netG, epoch + 1, filename='generator_best.pth')
 
     # Plotar perdas após o treinamento
-    plot_losses(G_losses, D_losses)
+    plot_losses(G_losses, D_losses, best_epoch, best_g_loss)

@@ -16,6 +16,7 @@ def main(args):
     lr = 0.0002
     beta1 = 0.5
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    save_interval = args.save_interval
 
     # Inicialização dos modelos
     netG = Generator(nz, image_size).to(device)
@@ -30,12 +31,13 @@ def main(args):
     dataloader = get_dataloader(batch_size)
 
     # Treinamento da GAN
-    train_gan(netG, netD, dataloader, criterion, optimizerG, optimizerD, nz, epochs, image_size, device)
+    train_gan(netG, netD, dataloader, criterion, optimizerG, optimizerD, nz, epochs, image_size, device, save_interval)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Treinamento de uma GAN.')
     parser.add_argument('--batch_size', type=int, default=64, help='Tamanho do batch para treinamento (padrão: 64)')
     parser.add_argument('--epochs', type=int, default=50, help='Número de épocas para treinamento (padrão: 50)')
+    parser.add_argument('--save_interval', type=int, default=10, help='Intervalo de iterações para salvar imagens e gradientes (padrão: 10 épocas)')
     
     args = parser.parse_args()
     
